@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>ხარჯების ტრეკერი</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e8449;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-left: 5px solid #27ae60;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧾 ჩემი ხარჯების ტრეკერი</h1>
+
+  <input type="text" id="description" placeholder="აღწერა (მაგ: ყავა)">
+  <input type="number" id="amount" placeholder="თანხა (მაგ: 5)">
+  <button onclick="addExpense()">დამამატე ხარჯი</button>
+
+  <ul id="expenseList"></ul>
+
+  <div class="total">ჯამი: <span id="totalAmount">0</span> ₾</div>
+
+  <script>
+    let total = 0;
+
+    function addExpense() {
+      const descInput = document.getElementById('description');
+      const amountInput = document.getElementById('amount');
+      const expenseList = document.getElementById('expenseList');
+      const totalAmount = document.getElementById('totalAmount');
+
+      const desc = descInput.value.trim();
+      const amount = parseFloat(amountInput.value);
+
+      if (!desc || isNaN(amount) || amount <= 0) {
+        alert("გთხოვ შეიყვანე სწორი ინფორმაცია!");
+        return;
+      }
+
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${desc}</span><span>${amount.toFixed(2)} ₾</span>`;
+      expenseList.appendChild(li);
+
+      total += amount;
+      totalAmount.textContent = total.toFixed(2);
+
+      // გასუფთავება
+      descInput.value = '';
+      amountInput.value = '';
+    }
+  </script>
+
+</body>
+</html>
